@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GAVLE — لوحة الإدارة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     شاشة تسجيل الدخول
+══════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">GAV<span>LE</span></div>
+    <p class="login-sub">لوحة إدارة المطعم</p>
+
+    <div class="field">
+      <label for="loginEmail">البريد الإلكتروني</label>
+      <input type="email" id="loginEmail" placeholder="admin@example.com" autocomplete="username" />
+    </div>
+    <div class="field">
+      <label for="loginPassword">كلمة المرور</label>
+      <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
+    </div>
+
+    <button class="btn-primary btn-login" id="loginBtn">تسجيل الدخول</button>
+    <p class="login-err" id="loginErr"></p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     لوحة التحكم (بعد الدخول)
+══════════════════════════════════════ -->
+<div id="adminShell" style="display:none">
+
+  <!-- Header -->
+  <header class="adm-header">
+    <div class="adm-brand">GAV<span>LE</span> <em>لوحة الإدارة</em></div>
+    <button class="btn-signout" id="signOutBtn">تسجيل الخروج</button>
+  </header>
+
+  <div class="adm-body">
+
+    <!-- إحصائيات -->
+    <div class="stats-row">
+      <div class="stat-card"><span class="stat-lbl">إجمالي الأصناف</span><span class="stat-val" id="sTotal">–</span></div>
+      <div class="stat-card"><span class="stat-lbl">متاح</span><span class="stat-val" id="sAvail">–</span></div>
+      <div class="stat-card"><span class="stat-lbl">مخفي</span><span class="stat-val" id="sHidden">–</span></div>
+      <div class="stat-card"><span class="stat-lbl">الفئات</span><span class="stat-val" id="sCats">–</span></div>
+    </div>
+
+    <!-- شريط الأدوات -->
+    <div class="toolbar">
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="🔍  ابحث عن صنف..." />
+      </div>
+      <select id="filterCat">
+        <option value="">كل الفئات</option>
+      </select>
+      <button class="btn-primary" id="addItemBtn">＋  إضافة صنف</button>
+    </div>
+
+    <!-- جدول الأصناف -->
+    <div class="tbl-wrap">
+      <div id="tblLoading" class="loading-wrap">
+        <div class="spinner"></div>
+        <p>جاري تحميل القائمة...</p>
+      </div>
+      <table id="itemsTbl" class="items-tbl" style="display:none">
+        <thead>
+          <tr>
+            <th style="width:64px">صورة</th>
+            <th>الاسم</th>
+            <th>الفئة</th>
+            <th>السعر (دينار)</th>
+            <th>الترتيب</th>
+            <th>الحالة</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="itemsTbody"></tbody>
+      </table>
+    </div>
+
+  </div><!-- /.adm-body -->
+</div><!-- /#adminShell -->
+
+<!-- ══════════════════════════════════════
+     نافذة الإضافة / التعديل
+══════════════════════════════════════ -->
+<div class="overlay" id="itemModal">
+  <div class="modal-box">
+    <button class="modal-x" id="modalCloseBtn">×</button>
+    <h2 class="modal-title" id="modalTitle">إضافة صنف جديد</h2>
+
+    <div class="form-grid">
+
+      <!-- الأسماء -->
+      <div class="field">
+        <label>الاسم بالعربية *</label>
+        <input type="text" id="f_name_ar" placeholder="مثال: بيتزا لحم" dir="rtl" required />
+      </div>
+      <div class="field">
+        <label>الاسم بالإنجليزية *</label>
+        <input type="text" id="f_name_en" placeholder="e.g. Beef Pizza" required />
+      </div>
+      <div class="field full">
+        <label>الاسم بالكردية</label>
+        <input type="text" id="f_name_ku" placeholder="پیتزای گۆشت" dir="rtl" />
+      </div>
+
+      <!-- الوصف (يظهر كملاحظة) -->
+      <div class="field">
+        <label>ملاحظة / مقاسات (عربي)</label>
+        <input type="text" id="f_desc_ar" placeholder="مثال: ص: 4,000 · و: 6,000" dir="rtl" />
+      </div>
+      <div class="field">
+        <label>ملاحظة / مقاسات (إنجليزي)</label>
+        <input type="text" id="f_desc_en" placeholder="S: 4,000 · M: 6,000" />
+      </div>
+      <div class="field full">
+        <label>ملاحظة / مقاسات (كردي)</label>
+        <input type="text" id="f_desc_ku" placeholder="بچ: 4,000 · گەورە: 8,000" dir="rtl" />
+      </div>
+
+      <!-- السعر والترتيب -->
+      <div class="field">
+        <label>السعر (دينار عراقي) *</label>
+        <input type="number" id="f_price" placeholder="5000" min="0" required />
+      </div>
+      <div class="field">
+        <label>ترتيب الظهور</label>
+        <input type="number" id="f_sort" placeholder="1" min="0" />
+      </div>
+
+      <!-- الفئة -->
+      <div class="field">
+        <label>معرّف الفئة * <small>(بالإنجليزية، بدون مسافات)</small></label>
+        <input type="text" id="f_cat_id" placeholder="pizza" required />
+      </div>
+      <div class="field">
+        <label>اسم الفئة (عربي) *</label>
+        <input type="text" id="f_cat_ar" placeholder="البيتزا" dir="rtl" required />
+      </div>
+      <div class="field">
+        <label>اسم الفئة (إنجليزي)</label>
+        <input type="text" id="f_cat_en" placeholder="Pizza" />
+      </div>
+      <div class="field">
+        <label>اسم الفئة (كردي)</label>
+        <input type="text" id="f_cat_ku" placeholder="پیتزا" dir="rtl" />
+      </div>
+
+      <!-- الصورة -->
+      <div class="field full">
+        <label>صورة الصنف</label>
+        <input type="file" id="f_img_file" accept="image/*" />
+        <p class="hint">اختر صورة للرفع عبر imgBB، أو أدخل رابطاً مباشراً أدناه</p>
+        <input type="url" id="f_img_url" placeholder="https://... (أو اتركه فارغاً)" style="margin-top:6px" />
+        <p id="imgUploadStatus" class="upload-status" style="display:none">جاري رفع الصورة...</p>
+        <div id="imgPreviewWrap" style="display:none;margin-top:8px">
+          <img id="imgPreview" class="img-preview" src="" alt="معاينة" />
+        </div>
+      </div>
+
+      <!-- متاح -->
+      <div class="field full chk-row">
+        <input type="checkbox" id="f_available" checked />
+        <label for="f_available">متاح في القائمة</label>
+      </div>
+
+    </div><!-- /.form-grid -->
+
+    <div class="form-actions">
+      <button class="btn-secondary" id="cancelModalBtn">إلغاء</button>
+      <button class="btn-primary" id="saveItemBtn">💾  حفظ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     نافذة تأكيد الحذف
+══════════════════════════════════════ -->
+<div class="overlay" id="deleteModal">
+  <div class="modal-box" style="max-width:420px;text-align:center">
+    <h2 class="modal-title">حذف الصنف؟</h2>
+    <p id="deleteItemName" style="color:var(--muted);margin-bottom:1.5rem"></p>
+    <div class="form-actions" style="justify-content:center">
+      <button class="btn-secondary" id="cancelDelBtn">إلغاء</button>
+      <button class="btn-danger"    id="confirmDelBtn">حذف</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- Firebase Compat SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<script src="firebase-config.js"></script>
+<script src="imgbb.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
