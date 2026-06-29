@@ -328,7 +328,7 @@ const itemImages = {
   foul: 'assets/images/foul.jpg',
   msabbaha: 'assets/images/msabbaha.jpg',
   fatteh: 'assets/images/fatteh.jpg',
-  riceShawarma: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=420&q=80',
+  riceShawarma: 'assets/images/rice-chicken.jpg',
   riceGravy: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=420&q=80',
   rizo: 'assets/images/rizo.jpg',
   roastedChicken: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=420&q=80',
