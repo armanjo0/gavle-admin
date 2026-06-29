@@ -11,13 +11,13 @@ let feedbackSubmitted = false;
 
 const translations = {
   en: {
-    documentTitle: 'GAVLE - Restaurant & Cafe',
+    documentTitle: 'GAVLE - FastFood',
     brand: {
       logo: 'GAV<span>LE</span>',
       name: 'GAVLE',
     },
     hero: {
-      eyebrow: 'Restaurant & Cafe',
+      eyebrow: 'FastFood',
       tagline: 'Quality food, crafted with care',
     },
     buttons: {
@@ -46,21 +46,21 @@ const translations = {
       thanks: '✅ Thank you for your feedback!',
     },
     footer: {
-      tagline: 'Restaurant & Cafe · Fine Food Daily',
-      copy: '© 2025 GAVLE Restaurant & Cafe · All rights reserved',
+      tagline: 'Fastfood · Fine Food Daily',
+      copy: '© 2025 GAVLE FastFood · All rights reserved',
     },
     empty: {
       menu: 'No menu items available.',
     },
   },
   ar: {
-    documentTitle: 'گافلي - مطعم وكافيه',
+    documentTitle: 'گافلي - فاست فود',
     brand: {
       logo: 'گاف<span>لي</span>',
       name: 'گافلي',
     },
     hero: {
-      eyebrow: 'مطعم وكافيه',
+      eyebrow: 'فاست فود',
       tagline: 'طعام شهي محضر بعناية',
     },
     buttons: {
@@ -89,21 +89,21 @@ const translations = {
       thanks: '✅ شكراً لملاحظاتك!',
     },
     footer: {
-      tagline: 'مطعم وكافيه · طعام فاخر يومياً',
-      copy: '© 2025 مطعم وكافيه گافلي · جميع الحقوق محفوظة',
+      tagline: 'فاست فود · طعام فاخر يومياً',
+      copy: '© 2025 فاست فود گافلي · جميع الحقوق محفوظة',
     },
     empty: {
       menu: 'لا توجد أصناف متاحة حالياً.',
     },
   },
   ku: {
-    documentTitle: 'گافلی - ڕێستورانت و کافێ',
+    documentTitle: 'گافلی - فاست فود',
     brand: {
       logo: 'گاف<span>لی</span>',
       name: 'گافلی',
     },
     hero: {
-      eyebrow: 'ڕێستورانت و کافێ',
+      eyebrow: 'فاست فود',
       tagline: 'خواردنی کوالیتی بە گرنگییەوە ئامادەکراوە',
     },
     buttons: {
@@ -132,8 +132,8 @@ const translations = {
       thanks: '✅ سوپاس بۆ بۆچوونەکەت!',
     },
     footer: {
-      tagline: 'ڕێستورانت و کافێ · خواردنی باش بەڕۆژانە',
-      copy: '© 2025 ڕێستورانت و کافێی گافلی · هەموو مافەکان پارێزراون',
+      tagline: 'فاست فود · خواردنی باش بەڕۆژانە',
+      copy: '© 2025 فاست فود · هەموو مافەکان پارێزراون',
     },
     empty: {
       menu: 'هیچ خواردنێک لە ئێستادا بەردەست نییە.',
@@ -141,13 +141,7 @@ const translations = {
   },
 };
 
-// ════════════════════════════════════════════════════════
-//  menuData — يُملأ من Firestore عند التشغيل
-//  البيانات الثابتة أدناه تُستخدم كاحتياطي فقط إذا فشل الاتصال
-// ════════════════════════════════════════════════════════
-let menuData = [];
-
-const menuDataFallback = [
+const menuData = [
   {
     id: 'pizza',
     title: { en: 'Piz', ar: 'البيتزا', ku: 'پیتزا' },
@@ -172,8 +166,8 @@ const menuDataFallback = [
     items: [
       { name: { en: 'Chicken Shawarma Wrap', ar: 'لفة شاورما دجاج', ku: 'ڕاپێچی شاورمای مریشک' }, price: '1,500', note: { en: 'Samoon bread', ar: 'خبز صمون', ku: 'نانی سەمون' } },
       { name: { en: 'Chicken Shawarma Wrap', ar: 'لفة شاورما دجاج', ku: 'ڕاپێچی شاورمای مریشک' }, price: '1,500', note: { en: 'Arabic bread', ar: 'خبز عربي', ku: 'نانی عەرەبی' } },
-      { name: { en: 'Half Chicken Shawarma + Fries', ar: 'نص شاورما دجاج + فنكر', ku: 'نیوەی شاورمای مریشک + پەتاتە سوراو' }, price: '4,000' },
-      { name: { en: 'Chicken Shawarma + Fries', ar: 'شاورما دجاج + فنكر', ku: 'شاورمای مریشک + پەتاتە سوراو' }, price: '8,000' },
+      { name: { en: 'Half Chicken Shawarma + Fries', ar: 'نص نفر شاورما دجاج + فنكر', ku: 'نیو نەفەر شاورمای مریشک + پەتاتە سوراو' }, price: '4,000' },
+      { name: { en: 'Chicken Shawarma + Fries', ar: 'نفر شاورما دجاج + فنكر', ku: 'نەفەرێک شاورمای مریشک + پەتاتە سوراو' }, price: '8,000' },
       { name: { en: 'Chicken Shawarma Meal', ar: 'وجبة شاورما دجاج باني', ku: 'خۆراکی شاورمای مریشک بە نانی بەنی' }, price: '4,000', note: { en: 'Bun bread', ar: 'خبز باني', ku: 'نانی بەنی' } },
     ],
   },
@@ -226,10 +220,10 @@ const menuDataFallback = [
     icon: '🍔',
     items: [
       { name: { en: 'Beef Burger', ar: 'بركر لحم', ku: 'بەرگەری گۆشت' }, price: '3,000' },
-      { name: { en: 'Beef Cheeseburger', ar: 'جبز بركر لحم', ku: 'چیزبەرگەری گۆشت' }, price: '3,500' },
+      { name: { en: 'Beef Cheeseburger', ar: 'جيز بركر لحم', ku: 'چیزبەرگەری گۆشت' }, price: '3,500' },
       { name: { en: 'Beef Burger with Mushroom', ar: 'بركر لحم مع فطر', ku: 'بەرگەری گۆشت + قارچک' }, price: '3,500' },
       { name: { en: 'Chicken Burger', ar: 'بركر دجاج', ku: 'بەرگەری مریشک' }, price: '2,500' },
-      { name: { en: 'Chicken Cheeseburger', ar: 'جبز بركر دجاج', ku: 'چیزبەرگەری مریشک' }, price: '3,000' },
+      { name: { en: 'Chicken Cheeseburger', ar: 'جيز بركر دجاج', ku: 'چیزبەرگەری مریشک' }, price: '3,000' },
       { name: { en: 'burger with egg', ar: 'بركر مع بيضة', ku: 'بەرگەر لەگەڵ هێلکە' }, price: '3,500' },
     ],
   },
@@ -301,41 +295,7 @@ const menuDataFallback = [
       { name: { en: 'KFC combo', ar: 'وجبة كنتاكی', ku: 'وەجبەی کێنتاکی' }, price: '5,000', note: { en: 'kfc + fries + drink', ar: 'كنتاكي + فنكر + ببسي', ku: 'کێنتاکی + فرایس + پێپسی' } },
     ],
   },
-]; // نهاية menuDataFallback
-
-// ════════════════════════════════════════════════════════
-//  initMenuFromFirestore — يُشغَّل عند بدء الصفحة
-// ════════════════════════════════════════════════════════
-async function initMenuFromFirestore() {
-  // عرض مؤشر تحميل مؤقت
-  const main = document.getElementById('menuMain');
-  if (main) {
-    main.innerHTML = '<div class="menu-loading"><div class="menu-spinner"></div></div>';
-  }
-
-  try {
-    // fetchMenuData() معرّفة في firestore.js
-    const data = await fetchMenuData();
-
-    if (data && data.length > 0) {
-      menuData.length = 0;
-      data.forEach(s => menuData.push(s));
-    } else {
-      // لا يوجد بيانات في Firestore → استخدم البيانات الثابتة
-      console.info('[GAVLE] Firestore فارغ، يُستخدم البيانات الاحتياطية');
-      menuData.length = 0;
-      menuDataFallback.forEach(s => menuData.push(s));
-    }
-  } catch (err) {
-    console.warn('[GAVLE] فشل تحميل Firestore:', err);
-    menuData.length = 0;
-    menuDataFallback.forEach(s => menuData.push(s));
-  }
-
-  // إعادة رسم القائمة الآن بعد اكتمال البيانات
-  renderNavigation();
-  renderMenu();
-}
+];
 
 const itemImages = {
   pizzaBeef: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=420&q=80',
@@ -344,7 +304,7 @@ const itemImages = {
   pizzaMargherita: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=420&q=80',
   pizzaVegetable: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=420&q=80',
   pizzaPepperoni: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=420&q=80',
-  chickenShawarma: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=420&q=80',
+  chickenShawarma: 'assets/images/chicken-shawarma.jpg',
   hummus: 'assets/images/hummus.jpg',
   fattoush: 'assets/images/fattoush.jpg',
   tabbouleh: 'assets/images/tabbouleh.jpg',
@@ -358,9 +318,9 @@ const itemImages = {
   beefCheeseburger: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=420&q=80',
   chickenCheeseburger: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?auto=format&fit=crop&w=420&q=80',
   beefMushroomBurger: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=420&q=80',
-  fries: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=420&q=80',
+  fries: 'assets/images/fries.jpg',
   kibbeh: 'assets/images/kubbah.jpg',
-  potatoWrap: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=420&q=80',
+  potatoWrap: 'assets/images/potato-wrap.jpg',
   cola: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=420&q=80',
   laban: 'assets/images/ayran.png',
   water: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=420&q=80',
@@ -370,11 +330,11 @@ const itemImages = {
   fatteh: 'assets/images/fatteh.jpg',
   riceShawarma: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=420&q=80',
   riceGravy: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=420&q=80',
-  rizo: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?auto=format&fit=crop&w=420&q=80',
+  rizo: 'assets/images/rizo.jpg',
   roastedChicken: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=420&q=80',
   zingerSandwich: 'assets/images/zingerSandwich.jpg',
   crispySandwich: 'assets/images/Crispy-Sandwich.jpg',
-  kfcMeal: 'assets/images/kfc-meal.jpg',
+  kfcMeal: 'assets/images/kentaki.jpg',
 };
 
 function getItemImageKey(section, item) {
@@ -1191,16 +1151,11 @@ function initLangOptions() {
 
 function init() {
   loadLanguage();
-  applyDirection(currentLanguage);
-  updateStaticTranslations();
-  updateLanguageOptions();
-  renderFeedbackForm();
+  renderNavigation();
+  renderMenu();
   initScrollTop();
   initLangOptions();
-
-  // تحميل القائمة من Firestore (أو الاحتياطية عند الفشل)
-  // initMenuFromFirestore تستدعي renderNavigation + renderMenu بعد اكتمال التحميل
-  initMenuFromFirestore();
+  updateLanguage();
 }
 
 init();
