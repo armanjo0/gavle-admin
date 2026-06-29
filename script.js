@@ -359,7 +359,7 @@ const itemImages = {
   chickenCheeseburger: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?auto=format&fit=crop&w=420&q=80',
   beefMushroomBurger: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=420&q=80',
   fries: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=420&q=80',
-  kibbeh: 'https://images.unsplash.com/photo-1606728035253-49e8a23146de?auto=format&fit=crop&w=420&q=80',
+  kibbeh: 'assets/images/kubbah.jpg',
   potatoWrap: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=420&q=80',
   cola: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=420&q=80',
   laban: 'assets/images/ayran.png',
